@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@layer components {
+  .tabStyle {
+    @apply px-2.5 py-2 border;
+  }
+  .tabStyleIcon {
+    @apply px-2.5 py-2 border flex gap-x-1 items-center justify-center;
+  }
+}
