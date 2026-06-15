@@ -1,9 +1,38 @@
+import { useState } from "react";
+import type { ExpenseForm } from "../types/ExpenseForm";
+import type { Category, Expense } from "../types/Expense";
+
 type AddExpenseProps = {
   showAddPage: boolean;
   setShowAddPage: () => void;
+  setExpense: (expense: Expense) => void;
 };
 
-const AddExpense = ({ showAddPage, setShowAddPage }: AddExpenseProps) => {
+const AddExpense = ({
+  showAddPage,
+  setShowAddPage,
+  setExpense,
+}: AddExpenseProps) => {
+  const initialFormData: ExpenseForm = {
+    title: "",
+    amount: "",
+    category: "Food",
+    date: "",
+  };
+  const [formData, setFormData] = useState<ExpenseForm>(initialFormData);
+  const handleAddExpense = () => {
+    const newExpense: Expense = {
+      id: crypto.randomUUID(),
+      title: formData.title,
+      amount: Number(formData.amount),
+      category: formData.category,
+      date: formData.date,
+    };
+    setExpense(newExpense);
+    setFormData(initialFormData);
+    setShowAddPage();
+  };
+
   if (!showAddPage) return null;
   return (
     <div className="absolute top-0 min-w-screen min-h-screen flex items-center justify-center bg-black/15  backdrop-blur-[2px]">
@@ -26,6 +55,10 @@ const AddExpense = ({ showAddPage, setShowAddPage }: AddExpenseProps) => {
             type="text"
             name="title"
             id="title"
+            value={formData.title}
+            onChange={(e) => {
+              setFormData({ ...formData, title: e.target.value });
+            }}
             className="border bg-gray-300"
           />
         </div>
@@ -33,20 +66,34 @@ const AddExpense = ({ showAddPage, setShowAddPage }: AddExpenseProps) => {
           <div className="flex flex-col">
             <label htmlFor="amount">Amount($)</label>
             <input
-              type="text"
+              type="number"
               name="amount"
               id="amount"
+              value={formData.amount}
+              onChange={(e) => {
+                setFormData({ ...formData, amount: e.target.value });
+              }}
               className="border bg-gray-300"
             />
           </div>
           <div className="flex flex-col">
             <label htmlFor="category-choice">Category</label>
-            <select id="category-choice" name="categories">
-              <option value="">Food</option>
-              <option value="volvo">Transport</option>
-              <option value="saab">Entertainment</option>
-              <option value="mercedes">Shopping</option>
-              <option value="audi">Other</option>
+            <select
+              id="category-choice"
+              name="categories"
+              value={formData.category}
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  category: e.target.value as Category,
+                });
+              }}
+            >
+              <option value="Food">Food</option>
+              <option value="Transportation">Transportation</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Shopping">Shopping</option>
+              <option value="Other">Other</option>
             </select>
           </div>
         </div>
@@ -56,12 +103,16 @@ const AddExpense = ({ showAddPage, setShowAddPage }: AddExpenseProps) => {
             type="date"
             name="date"
             id="date"
+            value={formData.date}
+            onChange={(e) => {
+              setFormData({ ...formData, date: e.target.value });
+            }}
             className="border bg-gray-300"
           />
         </div>
         <div className="flex justify-end">
           <button onClick={setShowAddPage}>Cancel</button>
-          <button>Add Expense</button>
+          <button onClick={handleAddExpense}>Add Expense</button>
         </div>
       </div>
     </div>

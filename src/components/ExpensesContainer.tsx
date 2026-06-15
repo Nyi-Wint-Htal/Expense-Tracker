@@ -1,16 +1,17 @@
 import SingleExpense from "./SingleExpense";
+import type { Expense } from "../types/Expense";
 
 type ExpensesContainerProps = {
-  quantity: number;
+  data: Expense[];
 };
 
-const ExpensesContainer = ({ quantity }: ExpensesContainerProps) => {
+const ExpensesContainer = ({ data }: ExpensesContainerProps) => {
   return (
     <>
       <div className="flex flex-col gap-y-5">
         <div className="flex flex-row items-center justify-start">
           <h1>Expenses</h1>
-          <p>{quantity}</p>
+          <p>{data.length}</p>
         </div>
         <div className="flex flex-row items-center justify-start border">
           <i className="fa-solid fa-magnifying-glass"></i>
@@ -42,13 +43,16 @@ const ExpensesContainer = ({ quantity }: ExpensesContainerProps) => {
           </span>
           <span className="tabStyle">Other</span>
         </div>
-        <SingleExpense
-          title="Grocery"
-          color="bg-green-500 text-green-900"
-          category="Food"
-          amount={23.99}
-          date="21.4.2022"
-        />
+        {data.map((expense) => (
+          <SingleExpense
+            key={expense.id}
+            id={expense.id}
+            title={expense.title}
+            category={expense.category}
+            amount={expense.amount}
+            date={expense.date}
+          />
+        ))}
       </div>
     </>
   );

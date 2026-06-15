@@ -16,7 +16,7 @@ const Category = () => {
               r="40"
               fill="none"
               stroke="#ddd"
-              stroke-width="12"
+              strokeWidth="12"
             />
             <circle
               cx="50"
@@ -24,8 +24,8 @@ const Category = () => {
               r="40"
               fill="none"
               stroke="orange"
-              stroke-width="12"
-              stroke-dasharray="251.3"
+              strokeWidth="12"
+              strokeDasharray="251.3"
               strokeDashoffset="70"
             />
           </svg>

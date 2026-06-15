@@ -1,7 +1,12 @@
-export type Category = "Food" | "Transportation" | "Entertainment" | "Shopping";
+export type Category =
+  | "Food"
+  | "Transportation"
+  | "Entertainment"
+  | "Shopping"
+  | "Other";
 
 export interface Expense {
-  color: string;
+  id: string;
   title: string;
   date: string;
   category: Category;
