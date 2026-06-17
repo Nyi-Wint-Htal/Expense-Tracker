@@ -69,7 +69,7 @@ const AddExpense = ({
         </div>
         <div className="grid grid-cols-2 gap-x-3">
           <div className="flex flex-col">
-            <label htmlFor="amount">Amount($)</label>
+            <label htmlFor="amount">Amount(฿)</label>
             <input
               type="number"
               name="amount"

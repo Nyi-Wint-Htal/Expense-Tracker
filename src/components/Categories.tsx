@@ -6,7 +6,7 @@ type CategoriesProps = {
 };
 
 const Categories = ({ expenses }: CategoriesProps) => {
-  const categories = [
+  const categories: Category[] = [
     "Food",
     "Transportation",
     "Entertainment",
@@ -34,14 +34,15 @@ const Categories = ({ expenses }: CategoriesProps) => {
   let accumulatedLength = 0;
 
   const chartData = categories.map((category) => {
-    const stats = getCategoriesStats(category as Category);
-    const percent = stats.total / totalExpense;
+    const stats = getCategoriesStats(category);
+    const percent = totalExpense === 0 ? 0 : stats.total / totalExpense;
     const length = percent * circumference;
     accumulatedLength += length;
     return {
-      color: categoryColors[category as Category],
+      color: categoryColors[category],
       offset: circumference - accumulatedLength,
       percent,
+      stats,
     };
   });
   return (
@@ -55,7 +56,7 @@ const Categories = ({ expenses }: CategoriesProps) => {
         </div>
 
         <div className="px-3 py-1 text-xs font-semibold text-indigo-600 bg-indigo-100 rounded-full dark:bg-indigo-500/20 dark:text-indigo-400">
-          ${totalExpense.toLocaleString()}
+          ฿{totalExpense.toLocaleString()}
         </div>
       </div>
 
@@ -141,7 +142,7 @@ const Categories = ({ expenses }: CategoriesProps) => {
             Total Spent
           </p>
           <h3 className="text-xl font-bold">
-            ${totalExpense.toLocaleString()}
+            ฿{totalExpense.toLocaleString()}
           </h3>
         </div>
       </div>
@@ -165,10 +166,7 @@ const Categories = ({ expenses }: CategoriesProps) => {
 
             <div className="flex items-center gap-3">
               <span className="text-sm text-slate-500">
-                $
-                {getCategoriesStats(
-                  category as Category,
-                ).total.toLocaleString()}
+                ฿{chartData[i].stats.total}
               </span>
 
               <span className="font-semibold">

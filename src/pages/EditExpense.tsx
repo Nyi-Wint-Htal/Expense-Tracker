@@ -55,10 +55,8 @@ const EditExpense = ({
       <div className="w-[90%] flex flex-col gap-y-3 max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-700 dark:bg-slate-800">
         <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
-            <h1 className="text-xl font-bold">Add Expense</h1>
-            <p className="text-sm text-slate-500">
-              Track where your money goes
-            </p>
+            <h1 className="text-xl font-bold">Edit Expense</h1>
+            <p className="text-sm text-slate-500">Update an existing expense</p>
           </div>
           <svg
             height="15"
@@ -85,7 +83,7 @@ const EditExpense = ({
         </div>
         <div className="grid grid-cols-2 gap-x-3">
           <div className="flex flex-col">
-            <label htmlFor="amount">Amount($)</label>
+            <label htmlFor="amount">Amount(฿)</label>
             <input
               type="number"
               name="amount"

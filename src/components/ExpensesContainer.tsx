@@ -20,7 +20,7 @@ const ExpensesContainer = ({ data }: ExpensesContainerProps) => {
   const filteredData = data.filter((expense) => {
     const matchesSearch = expense.title
       .toLowerCase()
-      .includes(search.toLowerCase());
+      .includes(search.trim().toLowerCase());
     const matchesTab = tab === "All" || expense.category === tab;
     return matchesSearch && matchesTab;
   });

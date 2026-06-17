@@ -6,7 +6,10 @@ import type { Expense } from "./types/Expense";
 import { ExpenseContext } from "./context/ExpenseContext";
 
 function App() {
-  const [darkMode, setDarkMode] = useState(true);
+  const [darkMode, setDarkMode] = useState(() => {
+    const darkModeData = localStorage.getItem("darkMode");
+    return darkModeData ? JSON.parse(darkModeData) : true;
+  });
   const [showAddPage, setShowAddPage] = useState(false);
   useEffect(() => {
     if (showAddPage) {
@@ -19,6 +22,9 @@ function App() {
       document.body.style.overflow = "auto";
     };
   }, [showAddPage]);
+  useEffect(() => {
+    localStorage.setItem("darkMode", JSON.stringify(darkMode));
+  }, [darkMode]);
   const [expenses, setExpenses] = useState<Expense[]>(() => {
     const data = localStorage.getItem("expenses");
     return data ? JSON.parse(data) : [];

@@ -43,7 +43,7 @@ const SingleExpense = ({ id, title, date, category, amount }: ExpenseProps) => {
         </div>
         <div className="flex items-center gap-4">
           <span className="text-sm text-slate-500">{category}</span>
-          <span className="font-bold">${amount}</span>
+          <span className="font-bold">฿{amount}</span>
           <div className="flex gap-2 transition duration-150 opacity-0 group-hover:opacity-100">
             <button onClick={() => setShowEditPage(true)}>
               <i className="fa-solid fa-pen-to-square"></i>
