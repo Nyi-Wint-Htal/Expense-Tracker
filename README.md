@@ -1,73 +1,154 @@
-# React + TypeScript + Vite
+💸 SpendWise
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern and responsive expense tracking application built with React, TypeScript, and Tailwind CSS.
 
-Currently, two official plugins are available:
+SpendWise helps users track daily expenses, organize spending by category, visualize spending habits through charts, and manage transactions with a clean and intuitive interface.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+⸻
 
-## React Compiler
+✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+📊 Dashboard Overview
 
-## Expanding the ESLint configuration
+- View total spending at a glance
+- Category summary cards
+- Real-time updates when expenses are added, edited, or deleted
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+💰 Expense Management
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Add new expenses
+- Edit existing expenses
+- Delete expenses
+- Automatic state updates using React Context
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+🔍 Search & Filter
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Search expenses by title
+- Filter expenses by category
+- Combine search and category filters simultaneously
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+📈 Spending Analytics
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Interactive category distribution chart
+- Percentage breakdown for:
+  - Food
+  - Transportation
+  - Entertainment
+  - Shopping
+  - Other
+- Total spending displayed directly in the chart
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🌙 Dark Mode
+
+- Toggle between light and dark themes
+- Smooth theme transitions
+
+💾 Persistent Storage
+
+- Expenses are stored in Local Storage
+- Data remains available after page refreshes
+
+📱 Responsive Design
+
+- Mobile-first layout
+- Modern card-based UI
+- Clean dashboard experience
+
+⸻
+
+🛠️ Technologies Used
+
+- React
+- TypeScript
+- Tailwind CSS
+- Context API
+- Local Storage
+- Font Awesome Icons
+- Vite
+
+⸻
+
+📂 Project Structure
+
+src/
+├── components/
+│ ├── Categories.tsx
+│ ├── ExpensesContainer.tsx
+│ ├── InfoCard.tsx
+│ ├── NavBar.tsx
+│ └── SingleExpense.tsx
+│
+├── pages/
+│ ├── Home.tsx
+│ ├── AddExpense.tsx
+│ └── EditExpense.tsx
+│
+├── context/
+│ └── ExpenseContext.tsx
+│
+├── types/
+│ ├── Expense.ts
+│ └── ExpenseForm.ts
+│
+├── App.tsx
+└── main.tsx
+
+⸻
+
+🧠 What I Learned
+
+This project was built as part of my React and TypeScript learning journey. Key concepts practiced include:
+
+- React Components
+- Props
+- State Management with useState
+- Side Effects with useEffect
+- Context API
+- Controlled Forms
+- TypeScript Types & Interfaces
+- Conditional Rendering
+- Array Methods (map, filter, reduce)
+- Local Storage Persistence
+- SVG-based Donut Charts
+- Tailwind CSS Styling
+- Dark Mode Implementation
+
+⸻
+
+🚀 Future Improvements
+
+- Expense sorting
+- Monthly spending reports
+- Budget tracking
+- Income tracking
+- Export data to CSV
+- Authentication
+- Cloud database integration
+- Animated charts
+- PWA support
+
+⸻
+
+📸 Preview
+
+SpendWise features a modern dashboard with:
+
+- Summary cards
+- Search and category filters
+- Expense management
+- Interactive spending chart
+- Dark mode support
+
+⸻
+
+👨‍💻 Author
+
+Nyi Wint Htal
+
+Computer Science Student passionate about web development, UI design, and building practical applications with React and TypeScript.
+
+⸻
+
+📄 License
+
+This project is open-source and available under the MIT License.
