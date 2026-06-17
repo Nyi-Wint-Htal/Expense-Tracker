@@ -19,8 +19,11 @@ const AddExpense = ({
     category: "Food",
     date: "",
   };
+
   const [formData, setFormData] = useState<ExpenseForm>(initialFormData);
   const handleAddExpense = () => {
+    if (!formData.title || !formData.amount) return;
+
     const newExpense: Expense = {
       id: crypto.randomUUID(),
       title: formData.title,
@@ -44,15 +47,12 @@ const AddExpense = ({
               Track where your money goes
             </p>
           </div>
-          <svg
-            height="15"
-            width="15"
-            viewBox="0 0 10 10"
-            className="rounded-full w-5 h-5 p-0.5 hover:bg-black/20"
+          <button
             onClick={setShowAddPage}
+            className="flex items-center justify-center w-8 h-8 transition-colors rounded-xl text-slate-500 hover:bg-red-50 hover:text-red-500 dark:hover:bg-red-500/10"
           >
-            <path stroke="black" d="M 0 0 L 10 10 M 0 10 L 10 0" />
-          </svg>
+            <i className="fa-solid fa-xmark"></i>
+          </button>
         </div>
         <div className="flex flex-col">
           <label htmlFor="title">Title</label>
@@ -118,7 +118,7 @@ const AddExpense = ({
         </div>
         <div className="flex justify-end gap-x-3">
           <button
-            className="px-4 py-2 font-medium border rounded-xl border-slate-200 hover:bg-slate-100"
+            className="px-4 py-2 font-medium transition-colors duration-150 border hover:text-black rounded-xl border-slate-200 hover:bg-slate-100"
             onClick={setShowAddPage}
           >
             Cancel

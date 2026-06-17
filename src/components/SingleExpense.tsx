@@ -44,11 +44,17 @@ const SingleExpense = ({ id, title, date, category, amount }: ExpenseProps) => {
         <div className="flex items-center gap-4">
           <span className="text-sm text-slate-500">{category}</span>
           <span className="font-bold">฿{amount}</span>
-          <div className="flex gap-2 transition duration-150 opacity-0 group-hover:opacity-100">
-            <button onClick={() => setShowEditPage(true)}>
+          <div className="flex gap-2 transition duration-150 opacity-100 md:opacity-0 md:group-hover:opacity-100">
+            <button
+              className="text-indigo-400 transition-colors md:text-slate-500 hover:text-indigo-400"
+              onClick={() => setShowEditPage(true)}
+            >
               <i className="fa-solid fa-pen-to-square"></i>
             </button>
-            <button onClick={() => handleDeleteExpense(id)}>
+            <button
+              className="text-red-500 transition-colors md:text-slate-500 md:hover:text-red-500"
+              onClick={() => handleDeleteExpense(id)}
+            >
               <i className="fa-solid fa-trash"></i>
             </button>
           </div>
