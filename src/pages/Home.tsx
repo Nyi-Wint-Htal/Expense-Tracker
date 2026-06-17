@@ -1,15 +1,16 @@
+import { useContext } from "react";
 import Categories from "../components/Categories";
 import ExpensesContainer from "../components/ExpensesContainer";
 import InfoCard from "../components/InfoCard";
-import type { Category, Expense } from "../types/Expense";
+import type { Category } from "../types/Expense";
+import { ExpenseContext } from "../context/ExpenseContext";
 
-type HomeProps = {
-  data: Expense[];
-};
-
-const Home = ({ data }: HomeProps) => {
+const Home = () => {
+  const expenseContext = useContext(ExpenseContext);
+  if (!expenseContext) return null;
+  const { expenses } = expenseContext;
   const getCategoryStats = (category: Category) => {
-    return data.reduce(
+    return expenses.reduce(
       (sum, expense) => {
         if (expense.category === category) {
           return { total: sum.total + expense.amount, count: sum.count + 1 };
@@ -21,19 +22,18 @@ const Home = ({ data }: HomeProps) => {
     );
   };
 
-  const totalAmt = data.reduce((sum, expense) => {
+  const totalAmt = expenses.reduce((sum, expense) => {
     return sum + expense.amount;
   }, 0);
-  const numTotalExpenses = data.length;
-
+  const numTotalExpenses = expenses.length;
   const foodStats = getCategoryStats("Food");
   const transportStats = getCategoryStats("Transportation");
   const entertainmentStats = getCategoryStats("Entertainment");
 
   return (
     <>
-      <div className="px-3 py-5">
-        <div className="grid grid-cols-2">
+      <div className="flex flex-col px-3 py-5 gap-y-5">
+        <div className="grid grid-cols-2 gap-x-5 gap-y-5">
           <InfoCard
             title="Total Spent"
             icon="fa-wallet"
@@ -63,8 +63,8 @@ const Home = ({ data }: HomeProps) => {
             quantityIdentifier="items"
           />
         </div>
-        <ExpensesContainer data={data} />
-        <Categories />
+        <ExpensesContainer data={expenses} />
+        <Categories expenses={expenses} />
       </div>
     </>
   );

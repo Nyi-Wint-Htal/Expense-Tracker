@@ -2,20 +2,37 @@ import logo from "../assets/SpendWiseIcon.png";
 
 type NavBarProps = {
   setShowAddPage: () => void;
+  setDarkMode: () => void;
 };
 
-const NavBar = ({ setShowAddPage }: NavBarProps) => {
+const NavBar = ({ setShowAddPage, setDarkMode }: NavBarProps) => {
   return (
     <>
-      <div className="flex flex-row items-center justify-between min-w-full border-b-2 h-fit ">
-        <div className="flex flex-row items-center justify-center gap-x-3">
-          <img src={logo} alt="SpendWise Logo" className="w-15" />
-          <h1>SpendWise</h1>
+      <div className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 border-b border-white/20 bg-white/70 backdrop-blur-xl dark:bg-slate-900/70 dark:border-slate-700">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center size-10 rounded-xl bg-linear-to-br from-indigo-500 to-purple-600">
+            <img src={logo} alt="SpendWise Logo" className="size-8" />
+          </div>
+          <div>
+            <h1 className="text-sm font-bold">SpendWise</h1>
+            <p className="text-xs text-slate-500 dark:text-slate-400">
+              Track smarter
+            </p>
+          </div>
         </div>
-        <div className="flex flex-row items-center justify-center gap-x-3">
-          <i className="fa-solid fa-circle-half-stroke"></i>
-          <button className="px-3 py-2 border" onClick={setShowAddPage}>
-            + Add Expense
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={setDarkMode}
+            className="flex items-center justify-center w-10 h-10 transition-colors rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700"
+          >
+            <i className="fa-solid fa-circle-half-stroke"></i>
+          </button>
+          <button
+            onClick={setShowAddPage}
+            className="px-4 py-2 text-sm font-semibold text-white transition-transform shadow-lg rounded-xl bg-linear-to-r from-indigo-500 to-purple-600 shadow-indigo-500/20 hover:scale-105"
+          >
+            + Add
           </button>
         </div>
       </div>

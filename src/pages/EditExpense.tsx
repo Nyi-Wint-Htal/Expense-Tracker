@@ -1,41 +1,57 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import type { ExpenseForm } from "../types/ExpenseForm";
 import type { Category, Expense } from "../types/Expense";
+import { ExpenseContext } from "../context/ExpenseContext";
 
-type AddExpenseProps = {
-  showAddPage: boolean;
-  setShowAddPage: () => void;
-  setExpense: (expense: Expense) => void;
+type EditExpenseProps = {
+  showEditPage: boolean;
+  setShowEditPage: () => void;
+  id: string;
+  title: string;
+  date: string;
+  category: Category;
+  amount: string;
 };
 
-const AddExpense = ({
-  showAddPage,
-  setShowAddPage,
-  setExpense,
-}: AddExpenseProps) => {
+const EditExpense = ({
+  showEditPage,
+  setShowEditPage,
+  id,
+  title,
+  date,
+  category,
+  amount,
+}: EditExpenseProps) => {
   const initialFormData: ExpenseForm = {
-    title: "",
-    amount: "",
-    category: "Food",
-    date: "",
+    title: title,
+    amount: amount,
+    category: category,
+    date: date,
   };
+  const expenseContext = useContext(ExpenseContext);
   const [formData, setFormData] = useState<ExpenseForm>(initialFormData);
+  if (!expenseContext) return null;
+  const { setExpenses } = expenseContext;
+
   const handleAddExpense = () => {
-    const newExpense: Expense = {
-      id: crypto.randomUUID(),
+    const updatedExpense: Expense = {
+      id,
       title: formData.title,
       amount: Number(formData.amount),
       category: formData.category,
       date: formData.date,
     };
-    setExpense(newExpense);
-    setFormData(initialFormData);
-    setShowAddPage();
+    setExpenses((prevExpenses) =>
+      prevExpenses.map((expense) => {
+        return expense.id === id ? updatedExpense : expense;
+      }),
+    );
+    setShowEditPage();
   };
 
-  if (!showAddPage) return null;
+  if (!showEditPage) return null;
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/15 backdrop-blur-[2px]">
+    <div className="fixed inset-0 flex items-center justify-center bg-black/15 backdrop-blur-[2px] z-10 ">
       <div className="w-[90%] flex flex-col gap-y-3 max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-700 dark:bg-slate-800">
         <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-700">
           <div>
@@ -49,7 +65,7 @@ const AddExpense = ({
             width="15"
             viewBox="0 0 10 10"
             className="rounded-full w-5 h-5 p-0.5 hover:bg-black/20"
-            onClick={setShowAddPage}
+            onClick={setShowEditPage}
           >
             <path stroke="black" d="M 0 0 L 10 10 M 0 10 L 10 0" />
           </svg>
@@ -118,8 +134,8 @@ const AddExpense = ({
         </div>
         <div className="flex justify-end gap-x-3">
           <button
-            className="px-4 py-2 font-medium border rounded-xl border-slate-200 hover:bg-slate-100"
-            onClick={setShowAddPage}
+            className="px-4 py-2 font-medium border rounded-xl border-slate-200 hover:bg-slate-100 hover:text-black"
+            onClick={setShowEditPage}
           >
             Cancel
           </button>
@@ -127,7 +143,7 @@ const AddExpense = ({
             className="px-4 py-2 font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700"
             onClick={handleAddExpense}
           >
-            Add Expense
+            Save
           </button>
         </div>
       </div>
@@ -135,4 +151,4 @@ const AddExpense = ({
   );
 };
 
-export default AddExpense;
+export default EditExpense;

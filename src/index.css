@@ -1,10 +1,20 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 @layer components {
   .tabStyle {
-    @apply px-2.5 py-2 border;
+    @apply px-4 py-2 text-sm font-medium transition-all duration-200 bg-white border rounded-full shadow-sm cursor-pointer border-slate-200 hover:bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-700;
+  }
+  .tabStyleActive {
+    @apply px-4 py-2 text-sm font-semibold text-white transition-all duration-200 rounded-full shadow-md cursor-pointer bg-slate-900 dark:bg-white dark:text-slate-900;
   }
   .tabStyleIcon {
-    @apply px-2.5 py-2 border flex gap-x-1 items-center justify-center;
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-medium transition-all duration-200 text-slate-700 bg-white border rounded-full shadow-sm cursor-pointer border-slate-200 hover:bg-slate-50 dark:text-slate-200 dark:bg-slate-800 dark:border-slate-700 dark:hover:bg-slate-700;
+  }
+  .tabStyleIconActive {
+    @apply flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white transition-all duration-200 rounded-full shadow-md cursor-pointer bg-slate-900 dark:bg-white dark:text-slate-900;
+  }
+  .inputStyle {
+    @apply w-full px-4 py-3 text-black border outline-none rounded-xl border-slate-200 bg-slate-50 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 dark:text-white dark:bg-slate-800 dark:border-slate-700;
   }
 }
