@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import type { ExpenseForm } from "../types/ExpenseForm";
-import type { Category, Expense } from "../types/Expense";
+import type { Category } from "../types/Expense";
 import { ExpenseContext } from "../context/ExpenseContext";
+import { supabase } from "../supabase-client";
 
 type EditExpenseProps = {
   showEditPage: boolean;
@@ -30,23 +31,46 @@ const EditExpense = ({
   };
   const expenseContext = useContext(ExpenseContext);
   const [formData, setFormData] = useState<ExpenseForm>(initialFormData);
+  const [errorMessage, setErrorMessage] = useState("");
   if (!expenseContext) return null;
   const { setExpenses } = expenseContext;
 
-  const handleAddExpense = () => {
-    if (!formData.title || !formData.amount) return;
+  const handleEditExpense = async () => {
+    setErrorMessage("");
+    if (!formData.title || !formData.amount) {
+      setErrorMessage("Please enter a title and amount.");
+      return;
+    }
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    const { error } = await supabase
+      .from("expenses")
+      .update({
+        title: formData.title,
+        amount: Number(formData.amount),
+        category: formData.category,
+        date: formData.date,
+      })
+      .eq("id", id)
+      .eq("user_id", user?.id);
 
-    const updatedExpense: Expense = {
-      id,
-      title: formData.title,
-      amount: Number(formData.amount),
-      category: formData.category,
-      date: formData.date,
-    };
+    if (error) {
+      setErrorMessage(error.message);
+      return;
+    }
     setExpenses((prevExpenses) =>
-      prevExpenses.map((expense) => {
-        return expense.id === id ? updatedExpense : expense;
-      }),
+      prevExpenses.map((expense) =>
+        expense.id === id
+          ? {
+              ...expense,
+              title: formData.title,
+              amount: Number(formData.amount),
+              category: formData.category,
+              date: formData.date,
+            }
+          : expense,
+      ),
     );
     setShowEditPage();
   };
@@ -67,6 +91,11 @@ const EditExpense = ({
             <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
+        {errorMessage && (
+          <div className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700 dark:border-red-900/60 dark:bg-red-950/40 dark:text-red-300">
+            {errorMessage}
+          </div>
+        )}
         <div className="flex flex-col">
           <label htmlFor="title">Title</label>
           <input
@@ -138,7 +167,7 @@ const EditExpense = ({
           </button>
           <button
             className="px-4 py-2 font-medium text-white bg-indigo-600 rounded-xl hover:bg-indigo-700"
-            onClick={handleAddExpense}
+            onClick={handleEditExpense}
           >
             Save
           </button>

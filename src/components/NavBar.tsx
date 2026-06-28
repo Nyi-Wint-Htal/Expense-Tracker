@@ -1,4 +1,5 @@
 import logo from "../assets/SpendWiseIcon.png";
+import { supabase } from "../supabase-client";
 
 type NavBarProps = {
   setShowAddPage: () => void;
@@ -6,6 +7,9 @@ type NavBarProps = {
 };
 
 const NavBar = ({ setShowAddPage, setDarkMode }: NavBarProps) => {
+  const logout = async () => {
+    await supabase.auth.signOut();
+  };
   return (
     <>
       <div className="sticky top-0 z-50 flex items-center justify-between px-4 py-3 border-b border-white/20 bg-white/70 backdrop-blur-xl dark:bg-slate-900/70 dark:border-slate-700">
@@ -33,6 +37,12 @@ const NavBar = ({ setShowAddPage, setDarkMode }: NavBarProps) => {
             className="px-4 py-2 text-sm font-semibold text-white transition-transform shadow-lg rounded-xl bg-linear-to-r from-indigo-500 to-purple-600 shadow-indigo-500/20 hover:scale-105"
           >
             + Add
+          </button>
+          <button
+            onClick={logout}
+            className="px-4 py-2 text-sm font-semibold text-white transition-transform shadow-lg rounded-xl bg-linear-to-r from-pink-500 to-red-600 shadow-red-500/20 hover:scale-105"
+          >
+            Log Out
           </button>
         </div>
       </div>
